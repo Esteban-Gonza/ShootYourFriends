@@ -20,6 +20,4 @@ public class GlobalManagers : MonoBehaviour
             Destroy(parentObj);
         }
     }
-
-
 }
