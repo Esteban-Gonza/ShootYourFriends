@@ -2,12 +2,17 @@ using Fusion;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : NetworkBehaviour, IBeforeUpdate
 {
+    [SerializeField] private TextMeshProUGUI playerNameText;
+    [SerializeField] private GameObject camera;
     [SerializeField] private float moveSpeed = 6;
     [SerializeField] private float jumpForce = 1000;
+
+    [Networked(OnChanged = nameof(OnNicknameChanged))] private NetworkString<_8> playerName { get; set; }
 
     [Networked] private NetworkButtons buttonsPrevs { get; set; }
     private float horizontal;
@@ -22,6 +27,35 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
     public override void Spawned()
     {
         playerRigid = GetComponent<Rigidbody2D>();
+
+        SetLocalObjects();
+    }
+
+    private void SetLocalObjects()
+    {
+        if (Runner.LocalPlayer == Object.HasInputAuthority)
+        {
+            camera.SetActive(true);
+
+            var nickname = GlobalManagers.Instance.networkRunnerController.localPlayerNickname;
+            RpcSetNickname(nickname);
+        }
+    }
+
+    [Rpc(sources: RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void RpcSetNickname(NetworkString<_8> nickname)
+    {
+        playerName = nickname;
+    }
+
+    private static void OnNicknameChanged(Changed<PlayerController> changed)
+    {
+        changed.Behaviour.SetPlayerNickname(changed.Behaviour.playerName);
+    }
+
+    private void SetPlayerNickname(NetworkString<_8> nickname)
+    {
+        playerNameText.text = nickname + " " + Object.InputAuthority.PlayerId;
     }
 
     public void BeforeUpdate()
