@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9016729308902363778}
   - component: {fileID: 7495102985781896718}
   - component: {fileID: 8324332757475062955}
+  - component: {fileID: 7846982476438691714}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -135,6 +136,7 @@ MonoBehaviour:
   - {fileID: 9016729308902363778}
   - {fileID: 7495102985781896718}
   - {fileID: 8324332757475062955}
+  - {fileID: 7846982476438691714}
   SimulationBehaviours: []
 --- !u!114 &9016729308902363778
 MonoBehaviour:
@@ -195,6 +197,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   player: {fileID: 7495102985781896718}
+--- !u!114 &7846982476438691714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59552075320707576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8892d60ae69ec24a9c6a9e921eb64aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  localCam: {fileID: 1504882418682142040}
+  pivotToRotate: {fileID: 6909240829382632155}
 --- !u!1 &140189754374541054
 GameObject:
   m_ObjectHideFlags: 0

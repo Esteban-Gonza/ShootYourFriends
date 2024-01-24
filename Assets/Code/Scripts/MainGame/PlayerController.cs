@@ -13,10 +13,11 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
     [SerializeField] private float jumpForce = 1000;
 
     [Networked(OnChanged = nameof(OnNicknameChanged))] private NetworkString<_8> playerName { get; set; }
-
     [Networked] private NetworkButtons buttonsPrevs { get; set; }
+
     private float horizontal;
     private Rigidbody2D playerRigid;
+    private PlayerWeaponController playerWeaponController;
 
     private enum PlayerInputButtons
     {
@@ -27,6 +28,7 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
     public override void Spawned()
     {
         playerRigid = GetComponent<Rigidbody2D>();
+        playerWeaponController = GetComponent<PlayerWeaponController>();
 
         SetLocalObjects();
     }
@@ -94,6 +96,7 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
     {
         PlayerData data = new PlayerData();
         data.horizontalInput = horizontal;
+        data.gunPivotRotation = playerWeaponController.localQuaternionPivotRot;
         data.networkButtons.Set(PlayerInputButtons.Jump, Input.GetKey(KeyCode.Space));
         return data;
     }
