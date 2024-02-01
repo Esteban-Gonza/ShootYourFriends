@@ -80,6 +80,8 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
             playerRigid.velocity = new Vector2(input.horizontalInput * moveSpeed, playerRigid.velocity.y);
             CheckJumpInput(input);
         }
+
+        playerVisualController.UpdateScaleTransforms(playerRigid.velocity);
     }
 
     public override void Render()

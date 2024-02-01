@@ -226,6 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7570475421728886511}
+  gunPivotTr: {fileID: 6909240829382632155}
+  canvasTr: {fileID: 7075934116512628986}
 --- !u!1 &140189754374541054
 GameObject:
   m_ObjectHideFlags: 0
