@@ -9,6 +9,7 @@ public class PlayerVisualController : MonoBehaviour
     [SerializeField] private Transform canvasTr;
 
     private readonly int isMovingHash = Animator.StringToHash("IsWalking");
+    private readonly int isShootingHash = Animator.StringToHash("IsShooting");
     private bool isFacingRight = true;
     private bool init;
     private Vector3 originalPlayerScale;
@@ -21,16 +22,20 @@ public class PlayerVisualController : MonoBehaviour
         originalGunPivotScale = gunPivotTr.transform.localScale;
         originalCanvasScale = canvasTr.transform.localScale;
 
+        const int SHOOTING_LAYER_INDEX = 1;
+        animator.SetLayerWeight(SHOOTING_LAYER_INDEX, 1);
+
         init = true;
     }
 
-    public void RendererVisuals(Vector2 velocity)
+    public void RendererVisuals(Vector2 velocity, bool isShooting)
     {
         if (!init) return;
 
         var isMoving = velocity.x > 0.1f || velocity.x < -0.1f;
 
         animator.SetBool(isMovingHash, isMoving);
+        animator.SetBool(isShootingHash, isShooting);
     }
 
     public void UpdateScaleTransforms(Vector2 velocity)
